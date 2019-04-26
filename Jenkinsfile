@@ -1,28 +1,32 @@
 pipeline {
     agent any
-    environment { 
-        VAR = 'pipeline'
-    }
     stages {
-        stage('1') {
-            environment { 
-                VARR = 'stage1'
+       
+        stage('Parallel Stage') {
+           
+            failFast true
+            parallel {
+                stage('Branch A') {
+                   
+                    steps {
+                        echo "On Branch A"
+                    }
+                }
+                stage('Branch B') {
+                    
+                    steps {
+                        echo "On Branch B"
+                    }
+                }
+                stage('Branch C') {
+                            steps {
+                                echo "In stage Nested 2 within Branch C"
+                            }
+                        
+                    }
+                }
             }
-            steps {
-                echo 'Hello 1'
-                echo "PIPELINE VAR: ${VAR}"
-                echo "STAGE VAR : ${VARR}"
-            }
-        }
-        stage('2') {
-            steps {
-                echo 'Hello 2'
-            }
+      
         }
     }
-    post { 
-        always { 
-            echo 'I will always say Hello again!'
-        }
-    }
-}
+
