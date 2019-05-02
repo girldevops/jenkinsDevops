@@ -1,28 +1,12 @@
 pipeline {
     agent any
-    environment { 
-        VAR = 'pipeline'
-    }
     stages {
-        stage('1') {
-            environment { 
-                VARR = 'stage1'
-            }
+        stage('checkout') {
             steps {
-                echo 'Hello 1'
-                echo "PIPELINE VAR: ${VAR}"
-                echo "STAGE VAR : ${VARR}"
-            }
-        }
-        stage('2') {
-            steps {
-                echo 'Hello 2'
+                git credentialsId: '3b03b4d0-fcde-4df0-8b0b-5d58d10649c9', url: 'https://github.com/girldevops/ansible.git'
             }
         }
     }
-    post { 
-        always { 
-            echo 'I will always say Hello again!'
-        }
-    }
+   
 }
+
